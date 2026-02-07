@@ -1298,76 +1298,49 @@
       });
     });
 
-    // Collapsible exercise log
-    document.querySelectorAll('[data-exercise]').forEach(item => {
-      item.querySelector('.exercise-header').addEventListener('click', () => {
-        item.classList.toggle('open');
-      });
-    });
-
-    // GIF play on hover (desktop) or when centered in viewport (iOS/touch)
+    // GIF play/pause on click (same click that expands to log reps)
     const TRANSPARENT_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     let activeGifItem = null;
 
     function setGifActive(item) {
       if (activeGifItem === item) return;
-      // Pause previous
       if (activeGifItem) {
         const prevImg = activeGifItem.querySelector('.exercise-gif');
         if (prevImg) prevImg.src = TRANSPARENT_GIF;
-        activeGifItem.classList.remove('gif-active');
+        activeGifItem.querySelector('.exercise-gif-wrap')?.classList.remove('gif-active');
       }
       activeGifItem = item;
-      if (item) {
-        const img = item.querySelector('.exercise-gif');
-        const gifUrl = img?.dataset?.gif;
-        if (img && gifUrl) {
-          img.src = gifUrl + (gifUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
-          item.classList.add('gif-active');
-        }
+      if (!item) return;
+      const wrap = item.querySelector('.exercise-gif-wrap');
+      const img = item.querySelector('.exercise-gif');
+      const gifUrl = img?.dataset?.gif;
+      if (img && gifUrl && wrap) {
+        img.src = gifUrl + (gifUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+        wrap.classList.add('gif-active');
       }
     }
 
     function clearGifActive() {
-      setGifActive(null);
-    }
-
-    const exerciseItems = document.querySelectorAll('[data-exercise]');
-    const gifUrl = document.querySelector('.exercise-gif')?.dataset?.gif;
-
-    // Hover for desktop
-    exerciseItems.forEach(item => {
-      const header = item.querySelector('.exercise-header');
-      header.addEventListener('mouseenter', () => setGifActive(item));
-      header.addEventListener('mouseleave', () => clearGifActive());
-    });
-    document.querySelector('.exercise-list')?.closest('main')?.addEventListener('mouseleave', clearGifActive);
-
-    // Scroll-to-play: when exercise GIF is near center of viewport (iOS / touch devices)
-    const isTouchDevice = !window.matchMedia('(hover: hover)').matches || 'ontouchstart' in window;
-    if (isTouchDevice) {
-      let scrollTick;
-      function checkCenterGif() {
-        let closest = null, minDist = Infinity;
-        exerciseItems.forEach(item => {
-          const wrap = item.querySelector('.exercise-gif-wrap');
-          if (!wrap) return;
-          const rect = wrap.getBoundingClientRect();
-          const viewportCenter = window.innerHeight / 2;
-          const elCenter = rect.top + rect.height / 2;
-          const dist = Math.abs(viewportCenter - elCenter);
-          if (rect.top < window.innerHeight && rect.bottom > 0 && dist < minDist) {
-            minDist = dist; closest = item;
-          }
-        });
-        setGifActive(closest && minDist < 150 ? closest : null);
+      if (activeGifItem) {
+        const prevImg = activeGifItem.querySelector('.exercise-gif');
+        if (prevImg) prevImg.src = TRANSPARENT_GIF;
+        activeGifItem.querySelector('.exercise-gif-wrap')?.classList.remove('gif-active');
+        activeGifItem = null;
       }
-      window.addEventListener('scroll', () => {
-        if (scrollTick) cancelAnimationFrame(scrollTick);
-        scrollTick = requestAnimationFrame(() => { checkCenterGif(); scrollTick = null; });
-      }, { passive: true });
-      checkCenterGif();
     }
+
+    // Collapsible exercise log + GIF play on click
+    document.querySelectorAll('[data-exercise]').forEach(item => {
+      item.querySelector('.exercise-header').addEventListener('click', () => {
+        item.classList.toggle('open');
+        const isOpen = item.classList.contains('open');
+        if (isOpen) {
+          setGifActive(item);
+        } else {
+          clearGifActive();
+        }
+      });
+    });
 
     // Open first section by default for demo
     document.querySelector('.section').classList.add('open');
