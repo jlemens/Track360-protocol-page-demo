@@ -1315,8 +1315,14 @@
       const img = item.querySelector('.exercise-gif');
       const gifUrl = img?.dataset?.gif;
       if (img && gifUrl && wrap) {
-        img.src = gifUrl + (gifUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
-        wrap.classList.add('gif-active');
+        try {
+          const resolvedUrl = new URL(gifUrl, window.location.href).href;
+          img.src = resolvedUrl + (resolvedUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+          wrap.classList.add('gif-active');
+        } catch (e) {
+          img.src = encodeURI(gifUrl) + '?t=' + Date.now();
+          wrap.classList.add('gif-active');
+        }
       }
     }
 
