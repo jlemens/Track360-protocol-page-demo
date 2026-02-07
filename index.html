@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
   <title>Calf Strain Protocol | TRACK360 Rehab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,11 +33,14 @@
     }
 
     body {
-      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-dark);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      min-height: -webkit-fill-available;
+      -webkit-tap-highlight-color: transparent;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     /* Header */
@@ -42,6 +48,7 @@
       background: var(--bg-card);
       border-bottom: 1px solid var(--border);
       padding: 1rem 1.25rem;
+      padding-top: calc(1rem + env(safe-area-inset-top));
       position: sticky;
       top: 0;
       z-index: 100;
@@ -92,7 +99,7 @@
     main {
       max-width: 720px;
       margin: 0 auto;
-      padding: 1.5rem 1.25rem 6rem;
+      padding: 1.5rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
     }
 
     /* Disclaimer */
@@ -235,15 +242,66 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem 1rem;
+      padding: 0.75rem 1rem;
       cursor: pointer;
       gap: 0.75rem;
+      min-height: 44px;
+      -webkit-tap-highlight-color: transparent;
     }
     .exercise-header:hover { background: var(--bg-card-hover); }
+    .exercise-header:active { background: var(--bg-card-hover); }
+    .exercise-gif-wrap {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      min-height: 56px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .exercise-gif-wrap .gif-placeholder {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+      text-align: center;
+      padding: 4px;
+      pointer-events: none;
+    }
+    .exercise-gif-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .exercise-gif-wrap.gif-active .gif-placeholder {
+      display: none;
+    }
+    .exercise-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .exercise-content .exercise-meta {
+      flex-shrink: 0;
+    }
     .exercise-name {
       font-weight: 500;
       font-size: 0.95rem;
       flex: 1;
+      min-width: 0;
     }
     .exercise-meta {
       font-size: 0.8rem;
@@ -551,9 +609,15 @@
           <div class="exercise-list">
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Ice</span>
-                <span class="exercise-meta">20 min on, 20 min off</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Ice</span>
+                  <span class="exercise-meta">20 min on, 20 min off</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -568,9 +632,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
-                <span class="exercise-meta">10–30 min</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                  <span class="exercise-meta">10–30 min</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -585,9 +655,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Walking as able</span>
-                <span class="exercise-meta">as able</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Walking as able</span>
+                  <span class="exercise-meta">as able</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -602,9 +678,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Ankle Pumps / Resisted ankle pumps</span>
-                <span class="exercise-meta">3 × 20</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Ankle Pumps / Resisted ankle pumps</span>
+                  <span class="exercise-meta">3 × 20</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -620,9 +702,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Ankle dorsiflexion (banded if low ROM) <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">2 × 15, 3 sec hold</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Ankle dorsiflexion (banded if low ROM) <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">2 × 15, 3 sec hold</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -638,9 +726,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg stance</span>
-                <span class="exercise-meta">3 × 3, 30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg stance</span>
+                  <span class="exercise-meta">3 × 3, 30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -655,9 +749,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Ankle circles</span>
-                <span class="exercise-meta">3 × 20</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Ankle circles</span>
+                  <span class="exercise-meta">3 × 20</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -673,9 +773,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Gastroc stretch standing <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">3 × 30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Gastroc stretch standing <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">3 × 30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -691,9 +797,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Gastroc stretch prone <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">3 × 30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Gastroc stretch prone <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">3 × 30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -731,9 +843,15 @@
           <div class="exercise-list">
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Ice</span>
-                <span class="exercise-meta">20 min on, 20 min off</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Ice</span>
+                  <span class="exercise-meta">20 min on, 20 min off</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -748,9 +866,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
-                <span class="exercise-meta">10–30 min</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                  <span class="exercise-meta">10–30 min</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -765,9 +889,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Walking & jogging as able</span>
-                <span class="exercise-meta">as able</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Walking & jogging as able</span>
+                  <span class="exercise-meta">as able</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -782,9 +912,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Double leg heel raise <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">2–3 × 12</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Double leg heel raise <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">2–3 × 12</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -799,9 +935,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Double leg heel raise up, single leg down <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">2–3 × 12</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Double leg heel raise up, single leg down <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">2–3 × 12</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -816,9 +958,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg heel raise <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">2–3 × 12</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg heel raise <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">2–3 × 12</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -833,9 +981,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Banded dorsiflexion</span>
-                <span class="exercise-meta">2 × 15</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Banded dorsiflexion</span>
+                  <span class="exercise-meta">2 × 15</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -851,9 +1005,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg stance on unstable surface</span>
-                <span class="exercise-meta">3 × 3, 30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg stance on unstable surface</span>
+                  <span class="exercise-meta">3 × 3, 30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -868,9 +1028,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Pogo hops</span>
-                <span class="exercise-meta">3 × 20</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Pogo hops</span>
+                  <span class="exercise-meta">3 × 20</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -907,9 +1073,15 @@
           <div class="exercise-list">
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
-                <span class="exercise-meta">10–30 min</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                  <span class="exercise-meta">10–30 min</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -924,9 +1096,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Jogging & running <span class="swap-tag">B</span></span>
-                <span class="exercise-meta">as able</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Jogging & running <span class="swap-tag">B</span></span>
+                  <span class="exercise-meta">as able</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -941,9 +1119,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg heel raise</span>
-                <span class="exercise-meta">2–3 × 12</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg heel raise</span>
+                  <span class="exercise-meta">2–3 × 12</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -958,9 +1142,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Banded dorsiflexion</span>
-                <span class="exercise-meta">2 × 15</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Banded dorsiflexion</span>
+                  <span class="exercise-meta">2 × 15</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -976,9 +1166,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Jump rope <span class="swap-tag">C</span></span>
-                <span class="exercise-meta">2 × 3, 1 min</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Jump rope <span class="swap-tag">C</span></span>
+                  <span class="exercise-meta">2 × 3, 1 min</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -993,9 +1189,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg lateral hopping <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">3 × 15–30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg lateral hopping <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">3 × 15–30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -1011,9 +1213,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Single leg forward hopping <span class="swap-tag">A</span></span>
-                <span class="exercise-meta">3 × 15–30 sec</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Single leg forward hopping <span class="swap-tag">A</span></span>
+                  <span class="exercise-meta">3 × 15–30 sec</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -1028,9 +1236,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Squat jumps <span class="swap-tag">C</span></span>
-                <span class="exercise-meta">2 × 8</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Squat jumps <span class="swap-tag">C</span></span>
+                  <span class="exercise-meta">2 × 8</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -1045,9 +1259,15 @@
             </div>
             <div class="exercise-item" data-exercise>
               <div class="exercise-header">
-                <span class="exercise-name">Sled pushes <span class="swap-tag">B</span></span>
-                <span class="exercise-meta">3 × 30 ft</span>
-                <span class="exercise-chevron">›</span>
+                <div class="exercise-gif-wrap">
+                  <span class="gif-placeholder">▶</span>
+                  <img data-gif="assets/exercise-demo.gif" alt="" class="exercise-gif">
+                </div>
+                <div class="exercise-content">
+                  <span class="exercise-name">Sled pushes <span class="swap-tag">B</span></span>
+                  <span class="exercise-meta">3 × 30 ft</span>
+                  <span class="exercise-chevron">›</span>
+                </div>
               </div>
               <div class="exercise-log">
                 <div class="exercise-log-inner">
@@ -1084,6 +1304,70 @@
         item.classList.toggle('open');
       });
     });
+
+    // GIF play on hover (desktop) or when centered in viewport (iOS/touch)
+    const TRANSPARENT_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    let activeGifItem = null;
+
+    function setGifActive(item) {
+      if (activeGifItem === item) return;
+      // Pause previous
+      if (activeGifItem) {
+        const prevImg = activeGifItem.querySelector('.exercise-gif');
+        if (prevImg) prevImg.src = TRANSPARENT_GIF;
+        activeGifItem.classList.remove('gif-active');
+      }
+      activeGifItem = item;
+      if (item) {
+        const img = item.querySelector('.exercise-gif');
+        const gifUrl = img?.dataset?.gif;
+        if (img && gifUrl) {
+          img.src = gifUrl + (gifUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+          item.classList.add('gif-active');
+        }
+      }
+    }
+
+    function clearGifActive() {
+      setGifActive(null);
+    }
+
+    const exerciseItems = document.querySelectorAll('[data-exercise]');
+    const gifUrl = document.querySelector('.exercise-gif')?.dataset?.gif;
+
+    // Hover for desktop
+    exerciseItems.forEach(item => {
+      const header = item.querySelector('.exercise-header');
+      header.addEventListener('mouseenter', () => setGifActive(item));
+      header.addEventListener('mouseleave', () => clearGifActive());
+    });
+    document.querySelector('.exercise-list')?.closest('main')?.addEventListener('mouseleave', clearGifActive);
+
+    // Scroll-to-play: when exercise GIF is near center of viewport (iOS / touch devices)
+    const isTouchDevice = !window.matchMedia('(hover: hover)').matches || 'ontouchstart' in window;
+    if (isTouchDevice) {
+      let scrollTick;
+      function checkCenterGif() {
+        let closest = null, minDist = Infinity;
+        exerciseItems.forEach(item => {
+          const wrap = item.querySelector('.exercise-gif-wrap');
+          if (!wrap) return;
+          const rect = wrap.getBoundingClientRect();
+          const viewportCenter = window.innerHeight / 2;
+          const elCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(viewportCenter - elCenter);
+          if (rect.top < window.innerHeight && rect.bottom > 0 && dist < minDist) {
+            minDist = dist; closest = item;
+          }
+        });
+        setGifActive(closest && minDist < 150 ? closest : null);
+      }
+      window.addEventListener('scroll', () => {
+        if (scrollTick) cancelAnimationFrame(scrollTick);
+        scrollTick = requestAnimationFrame(() => { checkCenterGif(); scrollTick = null; });
+      }, { passive: true });
+      checkCenterGif();
+    }
 
     // Open first section by default for demo
     document.querySelector('.section').classList.add('open');
