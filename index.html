@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calf Strain Protocol | TRACK360 Rehab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f0a18;
+      --bg-card: #1a1325;
+      --bg-card-hover: #231a35;
+      --purple: #8B5CF6;
+      --purple-light: #A78BFA;
+      --peach: #F59E8C;
+      --peach-bg: rgba(245, 158, 140, 0.15);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: rgba(148, 163, 184, 0.15);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .back-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .back-btn:hover { background: var(--bg-card-hover); }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      border-radius: 6px;
+    }
+    .protocol-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-left: auto;
+      color: var(--text);
+    }
+
+    /* Main content */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 6rem;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: rgba(245, 158, 140, 0.08);
+      border: 1px solid rgba(245, 158, 140, 0.3);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .disclaimer strong { color: var(--peach); }
+
+    .sources {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .sources a { color: var(--purple-light); text-decoration: none; }
+    .sources a:hover { text-decoration: underline; }
+
+    /* Collapsible sections */
+    .section {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .section.highlight {
+      border-color: rgba(245, 158, 140, 0.4);
+      background: linear-gradient(135deg, var(--peach-bg) 0%, transparent 100%);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      gap: 1rem;
+    }
+    .section-header:hover { background: var(--bg-card-hover); }
+    .section.highlight .section-header:hover { background: rgba(245, 158, 140, 0.08); }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .section-icon {
+      font-size: 1.25rem;
+    }
+    .section-chevron {
+      transition: transform 0.2s ease;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .section.open .section-chevron { transform: rotate(90deg); }
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .section.open .section-content { max-height: none; }
+    .section-body {
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .section-body > * + * { margin-top: 1rem; }
+
+    /* Typography in sections */
+    .section-body h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .section-body h2:first-child { margin-top: 0; }
+    .section-body h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      margin-bottom: 0.35rem;
+    }
+    .section-body p, .section-body li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .section-body ul {
+      padding-left: 1.25rem;
+      margin: 0.5rem 0;
+    }
+    .section-body ul ul { margin-top: 0.35rem; }
+    .section-body strong { color: var(--text); }
+    .section-body em { color: var(--purple-light); }
+    .section-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1rem 0;
+    }
+    .section-body blockquote {
+      border-left: 3px solid var(--purple);
+      padding-left: 1rem;
+      margin: 0.75rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Tables */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    .info-table th, .info-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-table th {
+      color: var(--purple-light);
+      font-weight: 500;
+    }
+    .info-table td { color: var(--text-muted); }
+
+    /* Exercises */
+    .exercise-list { margin-top: 1rem; }
+    .exercise-item {
+      background: var(--bg-dark);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .exercise-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1rem;
+      cursor: pointer;
+      gap: 0.75rem;
+    }
+    .exercise-header:hover { background: var(--bg-card-hover); }
+    .exercise-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+      flex: 1;
+    }
+    .exercise-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .exercise-chevron {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .exercise-item.open .exercise-chevron { transform: rotate(90deg); }
+    .exercise-log {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+    .exercise-item.open .exercise-log { max-height: 280px; }
+    .exercise-log-inner {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
+    }
+    .log-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .log-row:last-child { margin-bottom: 0; }
+    .log-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .log-field label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .log-field input {
+      width: 70px;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .log-field input::placeholder { color: var(--text-muted); opacity: 0.6; }
+    .log-complete {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .log-complete input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+    .log-complete span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .exercise-link {
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .exercise-link a {
+      color: var(--purple-light);
+      text-decoration: none;
+    }
+    .exercise-link a:hover { text-decoration: underline; }
+    .swap-tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: var(--purple-light);
+      margin-left: 0.5rem;
+    }
+
+    /* Stage progression box */
+    .move-to {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    .move-to strong {
+      color: var(--purple-light);
+      font-size: 0.9rem;
+    }
+    .move-to ul {
+      margin-top: 0.5rem;
+      padding-left: 1.25rem;
+    }
+    .move-to li { font-size: 0.9rem; }
+
+    /* Anatomy image placeholder */
+    .anatomy-img {
+      width: 100%;
+      max-width: 320px;
+      height: 180px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin: 1rem 0;
+      border: 1px dashed var(--border);
+    }
+
+    @media (max-width: 480px) {
+      .header-inner { padding: 0 0.5rem; }
+      main { padding: 1rem 1rem 5rem; }
+      .section-header, .section-body { padding-left: 1rem; padding-right: 1rem; }
+      .log-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="back-btn" aria-label="Back">‹</a>
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span>TRACK360</span>
+      </div>
+      <h1 class="protocol-title">Calf Strain</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This content is for informational purposes only and does not constitute medical advice. If you believe you have an injury or medical condition, please consult a licensed healthcare professional for in-person evaluation and care.
+    </div>
+
+    <div class="sources">
+      <strong>Primary Sources:</strong><br>
+      <a href="https://www.rehabhero.ca/exercise/" target="_blank" rel="noopener">Rehab Hero</a> · 
+      <a href="https://www.physio-pedia.com/Calf_Strain" target="_blank" rel="noopener">Calf Strain - Physiopedia</a>
+    </div>
+
+    <!-- Anatomy -->
+    <section class="section" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🫀</span> Anatomy</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <div class="anatomy-img">[Anatomy diagram placeholder]</div>
+          <h3>Origin:</h3>
+          <ul><li>Gastrocnemius: femoral condyles</li><li>Soleus: tibia</li></ul>
+          <h3>Insertions:</h3>
+          <p>Achilles tendon, which inserts on back of heel</p>
+          <h3>Primary Actions:</h3>
+          <p>Plantarflex the ankle (point toes down)</p>
+          <h3>Notes:</h3>
+          <p>Gastrocnemius is a two joint muscle, which also plays a minor role in knee flexion</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What is a Calf Strain -->
+    <section class="section" data-collapse>
+      <div class="section-header">
+        <div class="section-title">What is a Calf Strain?</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <p>A calf strain is a tearing injury of the muscles in the back of the lower leg (the calf complex). This injury usually happens during activities that involve running, sprinting, or sudden explosive movements.</p>
+          <h3>Muscles Involved:</h3>
+          <p>The calf complex includes two main muscles: <em>Gastrocnemius</em> (crosses both knee and ankle; more commonly injured) and <em>Soleus</em> (lies deeper, works primarily at the ankle).</p>
+          <hr>
+          <h3>Key Facts:</h3>
+          <ul>
+            <li>The <em>medial head of the gastrocnemius</em> is the most common site of injury.</li>
+            <li>Calf strains usually happen during sprinting, sudden acceleration/deceleration, or fatigue.</li>
+            <li>Injuries typically occur near the <em>musculotendinous junction</em>.</li>
+            <li>If not managed properly, calf strains have a high risk of re-injury.</li>
+          </ul>
+          <h3>Why Does It Happen?</h3>
+          <p>The gastrocnemius has a high percentage of <em>fast-twitch (Type II)</em> muscle fibers. Strains often happen when the muscle is <em>stretched and contracting</em> at the same time — especially with the knee straight and ankle dorsiflexed. The most common injury moment is during the <em>push-off phase</em> of running or jumping.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Risk Factors -->
+    <section class="section" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🚨</span> Risk Factors</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>Strongest Risk Factors:</h3>
+          <ul><li><em>Older age</em> — increased likelihood with aging muscle tissue.</li><li><em>Previous history of calf strain</em> — greatest predictor of future injury.</li></ul>
+          <h3>Other Possible Risk Factors:</h3>
+          <ul><li>History of other lower limb injuries, high BMI, inadequate warm-up.</li></ul>
+          <h3>Early Warning Signs:</h3>
+          <p>Dull ache in the calf, muscle tightness or cramping sensation — may be warning signs to reduce activity or modify training.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Injury Signs and Symptoms -->
+    <section class="section" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🩼</span> Injury Signs and Symptoms</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>Typical Symptoms:</h3>
+          <ul>
+            <li>Sudden, sharp pain or tearing sensation in the back of the lower leg (especially inner calf)</li>
+            <li>"A pop or snap sound" or "like getting kicked in the back of the leg"</li>
+            <li>Pain with walking, standing, stretching the calf</li>
+            <li>Swelling and bruising within hours or days</li>
+          </ul>
+          <h3>Gastrocnemius vs Soleus:</h3>
+          <table class="info-table">
+            <tr><th>Muscle</th><th>Pain Location</th><th>Injury Mechanism</th></tr>
+            <tr><td>Gastrocnemius</td><td>Inner calf (posteromedial)</td><td>Sudden push-off, sprint, jump — sharper pain, faster onset</td></tr>
+            <tr><td>Soleus</td><td>Outer/deeper calf (posterolateral)</td><td>Slow load with knee bent — deeper ache, more subacute</td></tr>
+          </table>
+          <h3>Grading (Grade 1–3):</h3>
+          <p><strong>Grade 1:</strong> Mild — sharp pain during/after activity, minimal swelling. <strong>Grade 2:</strong> Moderate — unable to continue playing, weakness with resisted contraction. <strong>Grade 3:</strong> Severe — complete tear, inability to contract, possible palpable gap; often requires surgery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- At Home Assessment - HIGHLIGHTED -->
+    <section class="section highlight" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🏠</span> At Home Assessment</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>1. Observation</h3>
+          <p>Check for swelling, bruising, visible dent or bulge. Watch walking pattern — limping may suggest more severe strain.</p>
+          <h3>2. Palpation</h3>
+          <p>Gently press along the calf. Check for tender spots, muscle tightness, small gap, or swelling.</p>
+          <h3>3. Movement Tests</h3>
+          <p>Sit with leg straight — point toes down (plantarflex) and up (dorsiflex). Compare both sides.</p>
+          <h3>4. Strength Check</h3>
+          <p>Try single-leg calf raise. Compare to uninjured leg.</p>
+          <h3>5. Thompson Test (Achilles Check)</h3>
+          <blockquote>Lie face down with feet off bed. Have someone squeeze the middle of your calf. Normal: foot points downward. No movement = possible Achilles rupture — seek medical attention.</blockquote>
+          <h3>When To Seek Medical Help:</h3>
+          <p>Inability to walk, severe swelling/bruising, obvious muscle gap, no foot movement during Thompson Test, numbness or tingling.</p>
+          <table class="info-table">
+            <tr><th>Monitor</th><th>Why</th></tr>
+            <tr><td>Pain Level</td><td>Should gradually decrease</td></tr>
+            <tr><td>Swelling / Bruising</td><td>Peak 1–2 days, then resolve</td></tr>
+            <tr><td>Walking Pattern</td><td>Limping may slow recovery</td></tr>
+            <tr><td>Calf Raise Strength</td><td>Key milestone for progression</td></tr>
+            <tr><td>Ankle Mobility</td><td>Important for normal gait</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips & Reminders -->
+    <section class="section" data-collapse>
+      <div class="section-header">
+        <div class="section-title">Tips & Reminders</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <ul>
+            <li><strong>Don't Stretch Too Soon</strong> — Avoid aggressive stretching early on.</li>
+            <li><strong>Respect Pain</strong> — Mild discomfort is okay; sharp or worsening pain means back off.</li>
+            <li><strong>Gradual Loading Wins</strong> — Re-train slowly before explosive activities.</li>
+            <li><strong>Warm-Up Matters</strong> — Dynamic warm-up with calf raises, heel walking.</li>
+            <li><strong>Be Patient</strong> — Grade 2+ can feel better quickly but aren't fully healed.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 1 - HIGHLIGHTED -->
+    <section class="section highlight" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🏋️</span> Stage 1 — Protection & Early Activation</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>Goals:</h3>
+          <p>Protect healing tissue, reduce swelling & pain, prevent stiffness, begin gentle activation.</p>
+          <h3>Precautions:</h3>
+          <p>Avoid aggressive stretching; avoid explosive movement or push-off.</p>
+          <div class="exercise-list">
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Ice</span>
+                <span class="exercise-meta">20 min on, 20 min off</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                <span class="exercise-meta">10–30 min</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Walking as able</span>
+                <span class="exercise-meta">as able</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Ankle Pumps / Resisted ankle pumps</span>
+                <span class="exercise-meta">3 × 20</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.rehabhero.ca/exercise/gas-pedals?rq=calf" target="_blank" rel="noopener">View exercise →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Ankle dorsiflexion (banded if low ROM) <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">2 × 15, 3 sec hold</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.rehabhero.ca/exercise/banded-ankle-dorsiflexion?rq=calf" target="_blank" rel="noopener">View exercise →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg stance</span>
+                <span class="exercise-meta">3 × 3, 30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Ankle circles</span>
+                <span class="exercise-meta">3 × 20</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.youtube.com/shorts/pPHkOXX-4GA" target="_blank" rel="noopener">View video →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Gastroc stretch standing <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">3 × 30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.youtube.com/shorts/v-ESMAERgUY" target="_blank" rel="noopener">View video →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Gastroc stretch prone <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">3 × 30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.youtube.com/watch?v=R9gYcS1cVVM" target="_blank" rel="noopener">View video →</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="move-to">
+            <strong>Move to Stage 2 if:</strong>
+            <ul><li>Walking without a limp</li><li>Minimal pain with daily activities</li><li>Able to perform gentle heel raise without sharp pain (single leg)</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 2 - HIGHLIGHTED -->
+    <section class="section highlight" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🏋️</span> Stage 2 — Restore Strength & Mobility</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>Goals:</h3>
+          <p>Regain calf strength, restore ankle mobility, build load tolerance for walking & stairs.</p>
+          <h3>Precautions:</h3>
+          <p>Avoid end-range stretching if still painful. No jumping or sprinting yet.</p>
+          <div class="exercise-list">
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Ice</span>
+                <span class="exercise-meta">20 min on, 20 min off</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                <span class="exercise-meta">10–30 min</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Walking & jogging as able</span>
+                <span class="exercise-meta">as able</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Double leg heel raise <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">2–3 × 12</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Double leg heel raise up, single leg down <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">2–3 × 12</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg heel raise <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">2–3 × 12</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Banded dorsiflexion</span>
+                <span class="exercise-meta">2 × 15</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.rehabhero.ca/exercise/banded-ankle-dorsiflexion?rq=calf" target="_blank" rel="noopener">View exercise →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg stance on unstable surface</span>
+                <span class="exercise-meta">3 × 3, 30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Pogo hops</span>
+                <span class="exercise-meta">3 × 20</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="move-to">
+            <strong>Move to Stage 3 if:</strong>
+            <ul><li>Full pain-free walking, stairs, and light jogging</li><li>Able to perform 15+ single leg heel raises pain-free</li><li>No swelling after activity</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 3 - HIGHLIGHTED -->
+    <section class="section highlight" data-collapse>
+      <div class="section-header">
+        <div class="section-title"><span class="section-icon">🏋️</span> Stage 3 — Power, Plyometrics & Return to Sport</div>
+        <span class="section-chevron">›</span>
+      </div>
+      <div class="section-content">
+        <div class="section-body">
+          <h3>Goals:</h3>
+          <p>Restore single-leg strength & endurance, prepare for higher velocity movements, gradual return to running/jumping.</p>
+          <h3>Precautions:</h3>
+          <p>Avoid explosive running or jumping until full single-leg strength restored.</p>
+          <div class="exercise-list">
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Stationary Bike <span class="swap-tag">cardio</span></span>
+                <span class="exercise-meta">10–30 min</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Jogging & running <span class="swap-tag">B</span></span>
+                <span class="exercise-meta">as able</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg heel raise</span>
+                <span class="exercise-meta">2–3 × 12</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Banded dorsiflexion</span>
+                <span class="exercise-meta">2 × 15</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.rehabhero.ca/exercise/banded-ankle-dorsiflexion?rq=calf" target="_blank" rel="noopener">View exercise →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Jump rope <span class="swap-tag">C</span></span>
+                <span class="exercise-meta">2 × 3, 1 min</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg lateral hopping <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">3 × 15–30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                  <div class="exercise-link"><a href="https://www.rehabhero.ca/exercise/single-leg-lateral-hops" target="_blank" rel="noopener">View exercise →</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Single leg forward hopping <span class="swap-tag">A</span></span>
+                <span class="exercise-meta">3 × 15–30 sec</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Squat jumps <span class="swap-tag">C</span></span>
+                <span class="exercise-meta">2 × 8</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="exercise-item" data-exercise>
+              <div class="exercise-header">
+                <span class="exercise-name">Sled pushes <span class="swap-tag">B</span></span>
+                <span class="exercise-meta">3 × 30 ft</span>
+                <span class="exercise-chevron">›</span>
+              </div>
+              <div class="exercise-log">
+                <div class="exercise-log-inner">
+                  <div class="log-row">
+                    <div class="log-field"><label>Sets</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Reps</label><input type="text" placeholder="—"></div>
+                    <div class="log-field"><label>Load</label><input type="text" placeholder="—"></div>
+                  </div>
+                  <label class="log-complete"><input type="checkbox"> <span>Mark as complete</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="move-to">
+            <strong>Move on if:</strong>
+            <ul><li>Full strength single-leg heel raise (equal to opposite side)</li><li>Jogging, jumping, change of direction drills pain-free</li><li>No swelling or soreness with sport-specific loading</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Collapsible sections
+    document.querySelectorAll('[data-collapse]').forEach(section => {
+      section.querySelector('.section-header').addEventListener('click', () => {
+        section.classList.toggle('open');
+      });
+    });
+
+    // Collapsible exercise log
+    document.querySelectorAll('[data-exercise]').forEach(item => {
+      item.querySelector('.exercise-header').addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+
+    // Open first section by default for demo
+    document.querySelector('.section').classList.add('open');
+  </script>
+</body>
+</html>
